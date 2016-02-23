@@ -1,0 +1,16 @@
+{
+  "name": "oxynode",
+  "version": "0.1.0",
+  "description": "OxyNode is a simple node framework for developing web applications with ease",
+  "main": "index.js",
+  "scripts": {
+  	"test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "framework",
+    "oxynode"
+  ],
+  "author": "Akshay Nair <phenax5@gmail.com> (https://akshaynair.herokuapp.com)",
+  "license": "Apache-2.0"
+}
