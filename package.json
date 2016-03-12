@@ -1,20 +1,81 @@
 {
-  "name": "oxynode",
-  "version": "0.1.0",
+  "_args": [
+    [
+      "oxynode",
+      "/run/media/phenax/dev/test_oxy"
+    ]
+  ],
+  "_from": "oxynode@latest",
+  "_id": "oxynode@0.1.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/oxynode",
+  "_nodeVersion": "5.3.0",
+  "_npmOperationalInternal": {
+    "host": "packages-5-east.internal.npmjs.com",
+    "tmp": "tmp/oxynode-0.1.0.tgz_1456246232148_0.6714113953057677"
+  },
+  "_npmUser": {
+    "email": "phenax5@gmail.com",
+    "name": "phenax5"
+  },
+  "_npmVersion": "3.5.2",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "oxynode",
+    "raw": "oxynode",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_shasum": "a21d59bf562630623e78aeb537d0c3cb64d0fe5d",
+  "_shrinkwrap": null,
+  "_spec": "oxynode",
+  "_where": "/run/media/phenax/dev/test_oxy",
+  "author": {
+    "email": "phenax5@gmail.com",
+    "name": "Akshay Nair",
+    "url": "https://akshaynair.herokuapp.com"
+  },
+  "bugs": {
+    "url": "https://github.com/phenax/oxynode/issues"
+  },
+  "dependencies": {},
   "description": "OxyNode is a simple node framework for developing web applications with ease",
-  "main": "index.js",
-  "scripts": {
-  	"test": "echo \"Error: no test specified\" && exit 1"
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "a21d59bf562630623e78aeb537d0c3cb64d0fe5d",
+    "tarball": "http://registry.npmjs.org/oxynode/-/oxynode-0.1.0.tgz"
   },
-  "repository": {
-  	"type" : "git",
-  	"url": "https://github.com/phenax/oxynode"
-  },
+  "gitHead": "ecbdd2704afdced2a486fb545771f050e5df5886",
+  "homepage": "https://github.com/phenax/oxynode#readme",
   "keywords": [
-    "nodejs",
     "framework",
+    "nodejs",
     "oxynode"
   ],
-  "author": "Akshay Nair <phenax5@gmail.com> (https://akshaynair.herokuapp.com)",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "phenax5",
+      "email": "phenax5@gmail.com"
+    }
+  ],
+  "name": "oxynode",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phenax/oxynode.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.1.0"
 }

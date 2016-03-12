@@ -1,55 +1,39 @@
 const http= require('http');
 const fs= require('fs');
+const templating= require('./components/templating');
+const response= require('./components/response');
+const pubsub= require('./components/pubsub');
+const default_errors= require('./components/errors');
 
 const OxyNode= ()=> {
 	var app;
 	var all_routes= [];
 	var config= {};
-	var events= {};
+	config.templating= templating;
 
-	var error_404= (req,res)=> {                                      // Default 404 Error
-		res.send("404 Not Found");
-	};
-
-	config.templating= {                                              // Default templating
-		compile(data, stuff) {
-			return (options)=> {
-				for(var key in options) {
-					data= data.split("{{"+key+"}}").join(options[key]);
-				}
-
-				return data;
-			};
-		}
-	};
+	var error_handlers= default_errors;
 
 	var server_set= ()=> {                                            // Create server function
-		app= http.createServer((req,res,err)=> {
-			res.send= (data)=> {                                      // Send data
-				res.write(data);
-				res.end();
-			};
+		app= http.createServer((req,res)=> {
+			var method, index;
 
-			res.render= (filename, options)=> {                       // Render templates
-				var data= fs.readFileSync(filename,'utf8');
-				data= (config.templating.compile(data, {}))(options);
-				res.send(data);
-			};
+			response(req,res,templating,fs);                          // Additional response methods
 
-			if(err) {                                                 // Server errors
-				res.send("Server Error");
-				throw err;
-			}
-
-			for(var i= all_routes.length - 1; i>= 0; i--) {           // Cycling through routes
-				if(all_routes[i].url == req.url) {
-					all_routes[i].method(req,res);
+			for(index= all_routes.length - 1; index>= 0; index--) {  // Cycling through routes
+				method= all_routes[index].method || 'get';
+				if(all_routes[index].url == req.url && method.toLowerCase() == (req.method).toLowerCase()) {
+					all_routes[index].callback(req,res);
 					break;
 				}
+
+				if(index === 0)
+					req.status= 404;
 			}
 
-			if(i < 0) {                                               // Route not found
-				error_404(req,res);
+			for(index in error_handlers) {
+				if(req.status == parseInt(index)) {
+					(error_handlers[index])(req,res);
+				}
 			}
 		});
 	};
@@ -64,38 +48,8 @@ const OxyNode= ()=> {
 		return { listen };
 	};
 
-	var handle_404= (fn)=> {                                          // Users defining new 404 Handlers
-		error_404= fn;
-	};
-
-	var pubsub= {                                                     // Simple PubSub
-
-		on(name, callback) {                    // Subscribe
-			name= name.split(" ");
-
-			for(var elem of name) {
-				events[elem]= {
-					elem,
-					callback
-				};
-			}
-		},
-		emit(name) {                            // Publish
-			if(events[name]) {
-				var e= { name };
-
-				(events[name].callback)(e);
-			} else {
-				console.log("Event not registered");
-			}
-		},
-		off(name) {                            // Unsubscribe
-			name= name.split(" ");
-
-			for(var elem of name) {
-				delete events[elem];
-			}
-		}
+	var errorHandling= (status,fn)=> {                                 // User defined error handlers
+		error_handlers[status]= fn;
 	};
 
 	var $set= (name,data)=> {                                          // Config setter
@@ -107,13 +61,7 @@ const OxyNode= ()=> {
 	};
 
 
-	return {
-		listen,
-		routes,
-		handle_404,
-		pubsub,
-		config: { $set, $get }
-	}
+	return { listen, routes, errorHandling, pubsub, config: { $set, $get } };
 };
 
 module.exports= OxyNode;
