@@ -31,13 +31,13 @@ var AboutPage= (req,res)=> {
 
 // Route config
 oxy.routes([
-	{ url: '/', method: MainPage },
-	{ url: '/about', method: AboutPage }
+	{ url: '/', callback: MainPage },
+	{ url: '/about', callback: AboutPage, method: 'POST' }
 ]);
 
 
 // 404 error handler
-oxy.handle_404((req,res)=> {
+oxy.errorHandling('404',(req,res)=> {
 	res.send("Not found");
 });
 
@@ -48,7 +48,7 @@ oxy.listen({ port: oxy.config.$get('port') });
 
 ## Event Handling
 ```javascript
-var events= oxy.pubsub;
+var events= oxy.pubsub();
 
 events.on('message msg', ()=> {
   console.log("Hello World");
