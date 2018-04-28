@@ -1,4 +1,6 @@
 # OxyNode
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/phenax/oxynode.svg)](https://greenkeeper.io/)
 OxyNode is a simple node framework for developing web applications with ease
 
 # How to install?
